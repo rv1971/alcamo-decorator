@@ -27,7 +27,7 @@ $set = new SetWithSum([ 42, 42, 7]);
 
 echo "Count: " . count($set) . "\n";
 
-echo "Sum: " . $set->getSum) . "\n";
+echo "Sum: " . $set->getSum() . "\n";
 ~~~
 
 This will output:
@@ -44,8 +44,8 @@ pattern](https://en.wikipedia.org/wiki/Decorator_pattern) for an
 arbitrary object. The class `Decorator` uses this trait.
 
 As in the example above, this can be used to create a class that adds
-functionality to a class when creating derived classes is not possible.
+functionality to a class when creating a derived class is not possible.
 
-All functionality of the enclosed object is exposed by the Decorator
+All functionality of the enclosed object is exposed by the decorator
 so that the decorator behaves just as the enclosed object, supporting,
 for instance, the Countable, Iterator or ArrayAccess interface.
