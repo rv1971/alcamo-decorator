@@ -32,9 +32,6 @@ trait DecoratorTrait
 {
     protected $handler_; ///< Handler object
 
-    /**
-     * @param $handler @copybrief $handler_
-     */
     public function __construct(object $handler)
     {
         $this->handler_ = $handler;
