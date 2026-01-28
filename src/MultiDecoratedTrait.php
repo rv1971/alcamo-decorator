@@ -45,8 +45,10 @@ trait MultiDecoratedTrait
     /// Add multiple decorator objects
     public function addDecorators(iterable $decorators): void
     {
-        foreach ($decorators as $decorator) {
-            $this->addDecorator($decorator);
+        /** If the key of an item is a string, use it for the key in
+         *  this class, else use the item class name for the key. */
+        foreach ($decorators as $key => $decorator) {
+            $this->addDecorator($decorator, is_string($key) ? $key : null);
         }
     }
 }

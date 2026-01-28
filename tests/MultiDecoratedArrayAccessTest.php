@@ -64,13 +64,13 @@ class MultiDecoratedArrayAccessTest extends TestCase
 
         $decoratorD = new DecoratorD();
 
-        $multi->addDecorators([ $decoratorB, $decoratorD ]);
+        $multi->addDecorators([ 'B' => $decoratorB, $decoratorD ]);
 
-        $this->assertSame(3, count($multi));
-
-        $this->assertSame($decoratorB, $multi[DecoratorB::class]);
+        $this->assertSame($decoratorB, $multi['B']);
 
         $this->assertSame($multi, $decoratorB->getHandler());
+
+        $this->assertSame(3, count($multi));
 
         $this->assertSame($decoratorD, $multi[DecoratorC::class]);
 
