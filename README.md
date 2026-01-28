@@ -49,3 +49,10 @@ functionality to a class when creating a derived class is not possible.
 All functionality of the enclosed object is exposed by the decorator
 so that the decorator behaves just as the enclosed object, supporting,
 for instance, the Countable, Iterator or ArrayAccess interface.
+
+The trait `MultiDecoratedTrait` offers a means to add multiple
+decorators to an object, indexed by their class
+nane. `MultiDecoratedArrayAccessTrait` is buil on top of this and
+allows to access the decorators via ArrayAccess methods.
+
+See the doxygen documentation for details.
