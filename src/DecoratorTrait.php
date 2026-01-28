@@ -134,9 +134,10 @@ trait DecoratorTrait
 
     public function setHandler(object $handler)
     {
-        if (isset($this->handler_)) {
+        if (isset($this->handler_) && $handler !== $this->handler_) {
             /** @throw alcamo::exception::Locked if the handler has already
-             *  been set upon construction. */
+             *  been set upon construction and is different from the given
+             *  handler. */
             throw (new Locked())->setMessageContext(
                 [ 'extraMessage' => 'handler already set' ]
             );
