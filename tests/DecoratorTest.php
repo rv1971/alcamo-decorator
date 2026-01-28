@@ -2,6 +2,7 @@
 
 namespace alcamo\decorator;
 
+use alcamo\exception\Locked;
 use PHPUnit\Framework\TestCase;
 
 class FooBar
@@ -81,7 +82,9 @@ class DecoratorTest extends TestCase
     {
         $text = 'Lorem ipsum';
 
-        $decorator = new Decorator(new MyString($text));
+        $decorator = new Decorator();
+
+        $decorator->setHandler(new MyString($text));
 
         $this->assertSame($text, (string)$decorator);
     }
@@ -125,5 +128,18 @@ class DecoratorTest extends TestCase
         foreach ($decorator as $key => $value) {
             $this->assertSame(strtolower($value->id), $decorator[$value]);
         }
+    }
+
+    public function testSetHandlerException(): void
+    {
+        $decorator = new Decorator(new MyString('foo'));
+
+        $this->expectException(Locked::class);
+        $this->expectExceptionMessage(
+            'Attempt to modify locked object <alcamo\decorator\Decorator>"foo"; '
+                . 'handler already set'
+        );
+
+        $decorator->setHandler(new MyString('bar'));
     }
 }

@@ -2,6 +2,8 @@
 
 namespace alcamo\decorator;
 
+use alcamo\exception\Locked;
+
 /**
  * @namespace alcamo::decorator
  *
@@ -32,7 +34,7 @@ trait DecoratorTrait
 {
     protected $handler_; ///< Handler object
 
-    public function __construct(object $handler)
+    public function __construct(?object $handler = null)
     {
         $this->handler_ = $handler;
     }
@@ -128,5 +130,18 @@ trait DecoratorTrait
     public function offsetUnset($offset): void
     {
         $this->handler_->offsetUnset($offset);
+    }
+
+    public function setHandler(object $handler)
+    {
+        if (isset($this->handler_)) {
+            /** @throw alcamo::exception::Locked if the hanlder has already
+             *  been set upon construction. */
+            throw (new Locked())->setMessageContext(
+                [ 'extraMessage' => 'handler already set' ]
+            );
+        }
+
+        $this->handler_ = $handler;
     }
 }

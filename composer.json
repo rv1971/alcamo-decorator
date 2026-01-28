@@ -4,7 +4,8 @@
     "keywords": [ "decorator" ],
     "license": "Apache-2.0",
     "require": {
-        "php": "7.3 - 8.0"
+        "php": "7.3 - 8.0",
+        "alcamo/exception": "^0.1"
     },
     "autoload": {
 	"psr-4": {
