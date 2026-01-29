@@ -40,8 +40,17 @@ class MyString
     }
 }
 
+class MyDecorator extends Decorator
+{
+    use StringableDecoratorTrait;
+}
+
 class ArrayDecorator extends Decorator implements \Countable, \IteratorAggregate, \ArrayAccess
 {
+    use CountableDecoratorTrait;
+    use IteratorAggregateDecoratorTrait;
+    use ArrayAccessDecoratorTrait;
+
     public function __construct(array $data)
     {
         parent::__construct(new \ArrayObject($data));
@@ -50,6 +59,10 @@ class ArrayDecorator extends Decorator implements \Countable, \IteratorAggregate
 
 class ObjectStorageDecorator extends Decorator implements \Countable, \Iterator, \ArrayAccess
 {
+    use CountableDecoratorTrait;
+    use IteratorDecoratorTrait;
+    use ArrayAccessDecoratorTrait;
+
     public function __construct(array $data)
     {
         parent::__construct(new \SplObjectStorage());
@@ -82,7 +95,7 @@ class DecoratorTest extends TestCase
     {
         $text = 'Lorem ipsum';
 
-        $decorator = new Decorator();
+        $decorator = new MyDecorator();
 
         $decorator->setHandler(new MyString($text));
 
@@ -132,11 +145,11 @@ class DecoratorTest extends TestCase
 
     public function testSetHandlerException(): void
     {
-        $decorator = new Decorator(new MyString('foo'));
+        $decorator = new MyDecorator(new MyString('foo'));
 
         $this->expectException(Locked::class);
         $this->expectExceptionMessage(
-            'Attempt to modify locked object <alcamo\decorator\Decorator>"foo"; '
+            'Attempt to modify locked object <alcamo\decorator\MyDecorator>"foo"; '
                 . 'handler already set'
         );
 

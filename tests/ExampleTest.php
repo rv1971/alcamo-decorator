@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class SetWithSum extends Decorator implements \Countable, \IteratorAggregate
 {
+    use CountableDecoratorTrait;
+    use IteratorAggregateDecoratorTrait;
+
     public function __construct($values)
     {
         parent::__construct(new Set($values));
